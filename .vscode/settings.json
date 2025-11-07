@@ -1,0 +1,22 @@
+{
+    "stm32-for-vscode.openOCDPath": false,
+    "stm32-for-vscode.makePath": false,
+    
+    // 自动加载 user.mk 环境变量到 VS Code 集成终端
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": {
+            "source": "PowerShell",
+            "icon": "terminal-powershell"
+        }
+    },
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    
+    // PowerShell 启动脚本（在新终端打开时自动执行）
+    "terminal.integrated.shellArgs.windows": [
+        "-NoExit",
+        "-ExecutionPolicy", "Bypass",
+        "-Command",
+        "if (Test-Path './scripts/load-user-env.ps1') { . './scripts/load-user-env.ps1' }"
+    ],
+    "Codegeex.RepoIndex": true
+}

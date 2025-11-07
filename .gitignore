@@ -1,0 +1,8 @@
+# Build output
+build/
+
+# Local user overrides (copy user.mk.example -> user.mk)
+user.mk
+
+# VS Code workspace settings (if any local overrides are created)
+.vscode/*.code-workspace

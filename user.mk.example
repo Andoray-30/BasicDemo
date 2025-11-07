@@ -1,0 +1,18 @@
+# user.mk.example - 本地配置模板
+# 复制为 user.mk 并修改为你的实际路径
+
+# ARM GCC 工具链（包含 arm-none-eabi-gcc.exe 的目录）
+GCC_PATH = F:/arm-toolchain/bin
+
+# SEGGER J-Link 目录
+SEGGER_JLINK_DIR = F:/SEGGER/Jlink
+JLINK_EXE = $(SEGGER_JLINK_DIR)/JLink.exe
+JLINK_RTT_CLIENT = $(SEGGER_JLINK_DIR)/JlinkRTTClient.exe
+
+# OpenOCD 目录
+OPENOCD_PATH = C:/OpenOCD
+
+# Make 配置
+MAKE = mingw32-make
+MAKE_JOBS = 24
+

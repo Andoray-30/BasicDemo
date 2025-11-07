@@ -1,0 +1,156 @@
+{
+    // === STM32F103 调试配置 (F5启动, Shift+F5停止) ===
+    // 调试器: OpenOCD (开源) 或 J-Link (商业)
+    // 模式: Launch (复位并调试) 或 Attach (附加到运行程序)
+    
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "OpenOCD DAPlink",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/build/BasicDemo.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "device": "STM32F103C8",
+            "svdFile": "${workspaceFolder}/STM32F103.svd",
+            "servertype": "openocd",
+            "configFiles": [
+                "interface/cmsis-dap.cfg",
+                ".vscode/stm32f1x_custom.cfg"
+            ],
+            "runToEntryPoint": "main",
+            "preLaunchTask": "build task",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 4
+            }
+        },
+        
+
+        {
+            "name": "OpenOCD ST-Link",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/build/BasicDemo.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "device": "STM32F103C8",
+            "svdFile": "${workspaceFolder}/STM32F103.svd",
+            "servertype": "openocd",
+            "configFiles": [
+                "interface/stlink.cfg",
+                ".vscode/stm32f1x_custom.cfg"
+            ],
+            "runToEntryPoint": "main",
+            "preLaunchTask": "build task",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 4
+            }
+        },
+        
+
+        {
+            "name": "J-Link",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/build/BasicDemo.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "device": "STM32F103C8",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "raw",
+            "servertype": "jlink",
+            "interface": "swd",
+            "svdFile": "${workspaceFolder}/STM32F103.svd",
+            "preLaunchTask": "build task",
+            "overrideRestartCommands": [
+                "monitor reset",
+                "monitor halt"
+            ],
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 4
+            }
+        },
+        
+
+        {
+            "name": "J-Link (Generic Cortex-M3)",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/build/BasicDemo.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "device": "Cortex-M3",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "raw",
+            "servertype": "jlink",
+            "interface": "swd",
+            "svdFile": "${workspaceFolder}/STM32F103.svd",
+            "preLaunchTask": "build task",
+            "overrideRestartCommands": [
+                "monitor reset",
+                "monitor halt"
+            ],
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 4
+            }
+        },
+        
+
+        {
+            "name": "J-Link (Connect Under Reset)",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/build/BasicDemo.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "device": "STM32F103C8",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "raw",
+            "servertype": "jlink",
+            "interface": "swd",
+            "svdFile": "${workspaceFolder}/STM32F103.svd",
+            "preLaunchTask": "build task",
+            "overrideResetCommands": [
+                "monitor reset 0",
+                "monitor halt"
+            ],
+            "postRestartCommands": [
+                "monitor reset 0",
+                "monitor halt"
+            ],
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 4
+            }
+        },
+        
+        {
+            "name": "OpenOCD DAPlink-Attach",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/build/BasicDemo.elf",
+            "request": "attach",
+            "type": "cortex-debug",
+            "device": "STM32F103C8",
+            "svdFile": "${workspaceFolder}/STM32F103.svd",
+            "servertype": "openocd",
+            "configFiles": [
+                "interface/cmsis-dap.cfg",
+                ".vscode/stm32f1x_custom.cfg"
+            ],
+        },
+        
+        {
+            "name": "J-Link-Attach",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/build/BasicDemo.elf",
+            "request": "attach",
+            "type": "cortex-debug",
+            "device": "STM32F103C8",
+            "showDevDebugOutput": "none",
+            "servertype": "jlink",
+            "interface": "swd",
+            "svdFile": "${workspaceFolder}/STM32F103.svd",
+        },
+    ],
+}
