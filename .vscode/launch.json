@@ -15,6 +15,9 @@
             "device": "STM32F103C8",
             "svdFile": "${workspaceFolder}/STM32F103.svd",
             "servertype": "openocd",
+            "gdbPath": "${workspaceFolder}/environment/Arm-GNU-Toolchian/bin/arm-none-eabi-gdb.exe",
+            "armToolchainPath": "${workspaceFolder}/environment/Arm-GNU-Toolchian/bin",
+            "serverpath": "${workspaceFolder}/environment/OpenOCD/bin/openocd.exe",
             "configFiles": [
                 "interface/cmsis-dap.cfg",
                 ".vscode/stm32f1x_custom.cfg"
@@ -37,6 +40,9 @@
             "device": "STM32F103C8",
             "svdFile": "${workspaceFolder}/STM32F103.svd",
             "servertype": "openocd",
+            "gdbPath": "${workspaceFolder}/environment/Arm-GNU-Toolchian/bin/arm-none-eabi-gdb.exe",
+            "armToolchainPath": "${workspaceFolder}/environment/Arm-GNU-Toolchian/bin",
+            "serverpath": "${workspaceFolder}/environment/OpenOCD/bin/openocd.exe",
             "configFiles": [
                 "interface/stlink.cfg",
                 ".vscode/stm32f1x_custom.cfg"
@@ -62,6 +68,9 @@
             "servertype": "jlink",
             "interface": "swd",
             "svdFile": "${workspaceFolder}/STM32F103.svd",
+            "gdbPath": "${workspaceFolder}/environment/Arm-GNU-Toolchian/bin/arm-none-eabi-gdb.exe",
+            "armToolchainPath": "${workspaceFolder}/environment/Arm-GNU-Toolchian/bin",
+            "serverpath": "${workspaceFolder}/environment/jlink/JLinkGDBServerCL.exe",
             "preLaunchTask": "build task",
             "overrideRestartCommands": [
                 "monitor reset",
@@ -86,6 +95,9 @@
             "servertype": "jlink",
             "interface": "swd",
             "svdFile": "${workspaceFolder}/STM32F103.svd",
+            "gdbPath": "${workspaceFolder}/environment/Arm-GNU-Toolchian/bin/arm-none-eabi-gdb.exe",
+            "armToolchainPath": "${workspaceFolder}/environment/Arm-GNU-Toolchian/bin",
+            "serverpath": "${workspaceFolder}/environment/jlink/JLinkGDBServerCL.exe",
             "preLaunchTask": "build task",
             "overrideRestartCommands": [
                 "monitor reset",
@@ -110,6 +122,9 @@
             "servertype": "jlink",
             "interface": "swd",
             "svdFile": "${workspaceFolder}/STM32F103.svd",
+            "gdbPath": "${workspaceFolder}/environment/Arm-GNU-Toolchian/bin/arm-none-eabi-gdb.exe",
+            "armToolchainPath": "${workspaceFolder}/environment/Arm-GNU-Toolchian/bin",
+            "serverpath": "${workspaceFolder}/environment/jlink/JLinkGDBServerCL.exe",
             "preLaunchTask": "build task",
             "overrideResetCommands": [
                 "monitor reset 0",
@@ -134,6 +149,9 @@
             "device": "STM32F103C8",
             "svdFile": "${workspaceFolder}/STM32F103.svd",
             "servertype": "openocd",
+            "gdbPath": "${workspaceFolder}/environment/Arm-GNU-Toolchian/bin/arm-none-eabi-gdb.exe",
+            "armToolchainPath": "${workspaceFolder}/environment/Arm-GNU-Toolchian/bin",
+            "serverpath": "${workspaceFolder}/environment/OpenOCD/bin/openocd.exe",
             "configFiles": [
                 "interface/cmsis-dap.cfg",
                 ".vscode/stm32f1x_custom.cfg"
@@ -151,6 +169,9 @@
             "servertype": "jlink",
             "interface": "swd",
             "svdFile": "${workspaceFolder}/STM32F103.svd",
+            "gdbPath": "${workspaceFolder}/environment/Arm-GNU-Toolchian/bin/arm-none-eabi-gdb.exe",
+            "armToolchainPath": "${workspaceFolder}/environment/Arm-GNU-Toolchian/bin",
+            "serverpath": "${workspaceFolder}/environment/jlink/JLinkGDBServerCL.exe",
         },
     ],
 }

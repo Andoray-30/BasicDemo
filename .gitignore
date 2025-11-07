@@ -6,3 +6,8 @@ user.mk
 
 # VS Code workspace settings (if any local overrides are created)
 .vscode/*.code-workspace
+
+# Avoid committing proprietary J-Link binaries by default
+/environment/jlink/*.exe
+/environment/jlink/*.dll
+/environment/jlink/*.zip

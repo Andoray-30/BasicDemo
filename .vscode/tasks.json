@@ -34,15 +34,14 @@
             }
         },
         {
-            "label": "download jlink",
+            "label": "setup jlink (copy from system)",
             "type": "shell",
-            "command": "mingw32-make",
-            "args": ["-j24"],
-            "options": {
-                "shell": {
-                    "args": ["-Command", "mingw32-make -j24; mingw32-make download_jlink"]
-                }
-            },
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy", "Bypass",
+                "-File", ".\\scripts\\download-jlink.ps1"
+            ],
             "group": {
                 "kind": "build",
                 "isDefault": false

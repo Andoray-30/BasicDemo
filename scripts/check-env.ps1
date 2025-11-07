@@ -1,21 +1,22 @@
 # 检查开发工具是否可用
 # 用法: .\scripts\check-env.ps1
 
+# 导入环境管理模块
+$modulePath = Join-Path $PSScriptRoot "env-manager.ps1"
+if (Test-Path $modulePath) {
+    . $modulePath
+} else {
+    Write-Error "env-manager.ps1 not found"
+    exit 1
+}
+
 # 加载 user.mk 配置
 if (Test-Path "user.mk") {
-    . .\scripts\load-user-env.ps1
+    Import-UserEnv -UserMkPath "user.mk" -AddToPath $true
 }
 
 function Check-Tool($cmd, $checkPath = $null) {
-    # 优先检查指定路径
-    if ($checkPath -and (Test-Path $checkPath)) {
-        Write-Host "[OK]     $cmd (found at $checkPath)" -ForegroundColor Green
-        return $true
-    }
-    
-    # 检查是否在 PATH 中
-    $which = Get-Command $cmd -ErrorAction SilentlyContinue
-    if ($which) {
+    if (Test-Tool -CommandName $cmd -CheckPath $checkPath) {
         Write-Host "[OK]     $cmd" -ForegroundColor Green
         return $true
     }

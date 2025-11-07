@@ -6,25 +6,19 @@ Param(
     [string]$OutFile = ".vscode/.env"
 )
 
+# 导入环境管理模块
+$modulePath = Join-Path $PSScriptRoot "env-manager.ps1"
+if (Test-Path $modulePath) {
+    . $modulePath
+} else {
+    Write-Error "env-manager.ps1 not found at: $modulePath"
+    return
+}
+
 if (-not (Test-Path $UserMk)) {
     Write-Host "user.mk not found." -ForegroundColor Yellow
     return
 }
 
-if (-not (Test-Path ".vscode")) { New-Item -Path ".vscode" -ItemType Directory | Out-Null }
-
-$lines = @()
-Get-Content $UserMk | ForEach-Object {
-    $line = $_.Trim()
-    if ($line -match '^[#;]' -or $line -eq '') { return }
-    if ($line -match '^([A-Za-z0-9_]+)\s*=\s*(.+)$') {
-        $key = $matches[1]
-        $val = $matches[2].Trim()
-        if ($val -match '^"(.*)"$') { $val = $matches[1] }
-        $val = $val -replace '/', '\\'
-        $lines += "$key=$val"
-    }
-}
-
-Set-Content -Path $OutFile -Value $lines -Encoding UTF8
-Write-Host "Generated $OutFile" -ForegroundColor Green
+# 使用统一模块生成 .env 文件
+Export-VscodeEnv -UserMkPath $UserMk -OutFile $OutFile

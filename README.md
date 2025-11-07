@@ -14,71 +14,115 @@
 
 ---
 
-##  快速开始
+## ⚡ 快速开始
 
-### 首次使用
+### 首次使用三步走
 
-**自动设置：**
+#### 第一步：一键配置环境
+
+**方式一：自动设置（推荐）**
+
 ```powershell
 .\setup.ps1  # 或双击 setup-env.bat
 ```
 
-**手动设置：**
+**方式二：手动设置**
+
 ```powershell
-Copy-Item user.mk.example user.mk
-notepad user.mk  # 配置工具链路径
+# 1. 允许运行脚本
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+
+# 2. 复制配置模板
+Copy-Item user.mk.example user.mk
+
+# 3. 编辑工具链路径
+notepad user.mk
+```
+
+> 💡 **首次使用必读**: 如果遇到"无法运行脚本"错误,运行 `Set-ExecutionPolicy` 命令即可解决
+
+#### 第二步：检查开发工具
+
+```powershell
 .\scripts\check-env.ps1
 ```
 
-> 💡 遇到脚本问题？查看 [QUICK_START.md](QUICK_START.md)
+**所需工具下载**:
+
+| 工具 | 用途 | 下载链接 |
+|------|------|----------|
+| ARM GCC | 编译器 | [ARM官网下载](https://developer.arm.com/downloads/-/gnu-rm) |
+| MinGW Make | 构建工具 | [MinGW下载](https://www.mingw-w64.org/downloads/) |
+| OpenOCD (可选) | ST-Link调试 | [OpenOCD下载](https://github.com/xpack-dev-tools/openocd-xpack/releases) |
+| J-Link (可选) | J-Link调试 | [SEGGER下载](https://www.segger.com/downloads/jlink/) |
+
+#### 第三步：开始开发
+
+- **编译**: `Ctrl+Shift+B` 或 `mingw32-make -j24`
+- **调试**: `F5` 启动调试
+- **烧录**: 见下方调试配置说明
 
 ---
 
-### 1. 环境配置
+## 📖 详细使用指南
 
-`powershell
+### 环境配置说明
 
+`user.mk` 用于存放本地工具链路径,避免修改仓库文件:
 
-# 编辑 user.mk，设置工具链路径（示例）
-# GCC_PATH = F:/arm-toolchain/bin
-# SEGGER_JLINK_DIR = F:/SEGGER/Jlink
+```makefile
+# user.mk 示例配置
+GCC_PATH = F:/arm-toolchain/bin
+SEGGER_JLINK_DIR = F:/SEGGER/Jlink
+MAKE = mingw32-make
+MAKE_JOBS = 24
+```
 
-# 检查工具是否可用
-.\scripts\check-env.ps1
-`
+**VS Code 自动加载**: 集成终端已配置自动执行 `load-user-env.ps1`,打开新终端即可使用环境变量。
 
-**提示**: VS Code 集成终端已配置自动加载 `user.mk` 环境变量，打开新终端即可生效。
+**手动加载**（外部 PowerShell）:
 
-### 2. 编译项目
+```powershell
+. .\scripts\load-user-env.ps1
+```
 
-`powershell
-# 快速编译（并行）
+### 编译项目
+
+**快速编译（并行）:**
+
+```powershell
 mingw32-make -j24
+```
 
-# 完全重新编译
+**完全重新编译:**
+
+```powershell
 mingw32-make clean; mingw32-make -j24
+```
 
-# 查看编译详情
+**查看编译详情:**
+
+```powershell
 mingw32-make V=1
-`
+```
 
-### 3. 调试
+### 调试
 
 - 连接调试器（ST-Link / J-Link）到开发板
 - 按 **F5** 启动调试
 - 选择对应配置（推荐 `OpenOCD ST-Link` 或 `J-Link`）
 
-### 4. 烧录（不调试）
+### 烧录（不调试）
 
-`powershell
-# ST-Link
+**使用 ST-Link:**
+
+```powershell
 openocd -f interface/stlink.cfg -f .vscode/stm32f1x_custom.cfg -c "program build/BasicDemo.elf verify reset exit"
-`
+```
 
 ---
 
-##  常用命令速查
+## 📋 常用命令速查
 
 | 命令 | 说明 |
 |------|------|
@@ -94,7 +138,7 @@ openocd -f interface/stlink.cfg -f .vscode/stm32f1x_custom.cfg -c "program build
 
 ---
 
-##  调试配置
+## 🔧 调试配置
 
 项目已配置多种调试方式，按 **F5** 启动调试：
 
@@ -114,7 +158,7 @@ openocd -f interface/stlink.cfg -f .vscode/stm32f1x_custom.cfg -c "program build
 
 ---
 
-##  常见问题
+## ❓ 常见问题
 
 ### PowerShell 脚本
 
@@ -155,9 +199,9 @@ A: 使用 `mingw32-make clean; mingw32-make -j24` 强制重编译
 
 ---
 
-##  项目结构
+## 📁 项目结构
 
-```
+```plaintext
 BasicDemo/
  build/              # 编译输出 (elf/hex/bin)
  Core/
@@ -181,29 +225,7 @@ BasicDemo/
 
 ---
 
-##  本地配置说明
-
-`user.mk` 用于存放本地工具链路径，避免修改仓库文件：
-
-```makefile
-# user.mk 示例
-GCC_PATH = F:/arm-toolchain/bin
-SEGGER_JLINK_DIR = F:/SEGGER/Jlink
-MAKE = mingw32-make
-MAKE_JOBS = 24
-```
-
-**VS Code 自动加载**: 集成终端已配置自动执行 `load-user-env.ps1`，打开新终端即可使用环境变量。
-
-**手动加载**（外部 PowerShell）:
-
-```powershell
-. .\scripts\load-user-env.ps1
-```
-
----
-
-##  参考资料
+## 📚 参考资料
 
 - [STM32F103 数据手册](https://www.st.com/resource/en/datasheet/stm32f103c8.pdf)
 - [STM32F103 参考手册](https://www.st.com/resource/en/reference_manual/cd00171190.pdf)
@@ -213,6 +235,6 @@ MAKE_JOBS = 24
 
 ---
 
-##  许可证
+## 📄 许可证
 
 本项目基于 ST 提供的 HAL 库和 CMSIS 库开发，遵循相应的开源许可证。
